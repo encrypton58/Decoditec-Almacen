@@ -1,0 +1,254 @@
+doctype html
+head
+    include ../../layouts/headTemplate.pug
+    // Compiled and minified CSS
+
+
+
+style(type="text/css").
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .loading-hidden { display :none !important;}
+
+    .loading {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(25,21,22,.3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+        to { -webkit-transform: rotate(360deg); }
+    }
+    @-webkit-keyframes spin {
+        to { -webkit-transform: rotate(360deg); }
+    }
+
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+    }
+
+    .pagination li.active {
+        background-color: purple;
+        color: white;
+    }
+
+    .pagination li.active a{
+        color: white;
+    }
+
+    .hide{
+        display: none;
+    }
+
+    .showPagination{
+        display: flex;
+    }
+
+    .show{
+        display: table-cell;
+    }
+
+    .showRow{
+        display: flex;
+    }
+
+.wrapper
+    include ../../layouts/sidebar.pug
+    .main-panel
+        // Navbar
+        include ../../layouts/navbar.pug
+        .content
+            .container-fluid
+                h1 Editar Vales
+                br
+                form
+                    .form-row
+                        .form-group.col-md-6
+                            h4
+                                b Que Tipo de Vale Editas
+                            select#tvl(name="tvl").form-control
+                                option(value="some") ------  
+                                option(value="vales_de_salidas") Vales De Salida
+                                option(value="vales_de_entradas") Vales De Entrada
+                        .form-group.col-md-6
+                            h4
+                                b Selecciona la version de la tabla
+                            select#vTable(name="vesion").form-control 
+                                option(value="some") ----- 
+                                option(value="v1") V1
+                                option(value="v2") V2  
+                    br
+                    br
+                    .form-row
+                        .form-group.col-md-6
+                            .col-md-12.offset-2
+                                span 
+                                    b Selecciona Un Filtro
+                            select.form-control#f1
+                                option(value="Some") ---------
+                                option(value="noFolio")  No. Folio
+                                option(value="nombre") Nombre
+                                option(value="fecha") Fecha 
+                                option(value="material") Material
+                                option(value="proyecto") Proyecto
+                        .form-group.col-md-6
+                            .col-md-12.offset-2
+                                span 
+                                    b Selecciona Un Filtro
+                            select.form-control#f2
+                                option(value="Some") ------------
+                                option(value="noFolio")  No. Folio
+                                option(value="nombre") Nombre
+                                option(value="fecha") Fecha 
+                                option(value="material") Material
+                                option(value="proyecto") Proyecto
+                    .form-row
+                        .form-group.col-md-6
+                            input.form-control(type="text" value="" placeholder="Palabra Clave")#pc1
+                        .form-group.col-md-6 
+                            input.form-control(type="text" value="" placeholder="Palabra Clave")#pc2
+                    .form-row 
+                        .form-group.col-md-6
+                            button(onclick="buscarVales()" type="button").btn.btn-primary#buscar
+                                i.material-icons search
+                                | Buscar Vales Para Editar
+                .row
+                    .col-md-12
+                        .card
+                            .card-header.card-header-primary
+                                h4.card-title Vales Encontrados
+                                p.card-category Resultados de Busqueda
+                            .card-body
+                                .table-responsive
+                                    table.table
+                                        thead.text-primary
+                                            tr
+                                                th No Folio
+                                                th Nombre
+                                                th Fecha 
+                                                th.v1 Cantidad
+                                                th.v1 Material
+                                                th.v2.hide Materiales
+                                                    br
+                                                    h6 (Cant | Mat | Obs)
+                                                th Proyecto
+                                                th Recibio
+                                                th Entrego
+                                                th.v1 Observacion
+                                                th.v2.hide Obs Vale
+                                                th Acciones
+                                        tbody#mostrarVS
+                                            div#load.loading-hidden
+                                            each v in vales
+                                                tr
+                                                    td=v.noFolio
+                                                    td=v.nombre
+                                                    td=v.fecha
+                                                    td.v1=v.cantidad
+                                                    td.v1=v.material
+                                                    td.hide.v2 Material
+                                                    td=v.proyecto
+                                                    td=v.recibio
+                                                    td=v.entrego
+                                                    td.v1=v.observacion
+                                                    td.v2.hide Obs Vale
+                                                    td.text-center
+                                                        button(type="button" onclick="eliminarRegistro(this)" id=v.noFolio).btn.btn-danger
+                                                            i.material-icons delete
+                                                        button(type="button" onclick="editarVale(this)" id=v.noFolio).btn.btn-primary
+                                                            i.material-icons edit_note
+                                        tbody#mostrarV2.hide
+                                            td Haz una busqueda para ver información
+                .row
+                    .col-md-12
+                        ul#pagination.pagination.showPagination
+                .row
+                    .col-md-12
+                        // Modal
+                        div(class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true")#editModal.modal.fade
+                            div(role="document").modal-dialog.modal-lg
+                                .modal-content 
+                                    .modal-header
+                                        h5.modal-title#editModalLabel Editar Vale
+                                        button(type="button" class="close" data-dismiss="modal" aria-label="close")
+                                            span(aria-hidden="true") &times;
+                                    .modal-body
+                                        form(name="ev")
+                                            .row
+                                                .col-md-6
+                                                    .form-group
+                                                        label(for="folio") Folio
+                                                        input(class="form-control" name="fol" type="text")
+                                                .col-md-6
+                                                    .form-group
+                                                        label(for="inputEmail4") Nombre
+                                                        input.form-control(type='text' name="nom")
+                                            br
+                                            .row
+                                                .col-md-6
+                                                    .form-group
+                                                        label(for="folio") Fecha
+                                                        input(class="form-control" type="date" name="fec")
+                                                .col-md-6
+                                                    .form-group
+                                                        label(for="folio") Proyecto
+                                                        input(class="form-control" type="text" name="pro")
+                                            br
+                                            #materialesForm
+                                                .row#init
+                                                    .col-md-4
+                                                        .form-group
+                                                            label(for="folio") Cantidad
+                                                            input.form-control(type='text', name="can")
+                                                    .col-md-4
+                                                        .form-group
+                                                            label(for="folio") Material
+                                                            input.form-control(type='text', name="mat")
+                                                    .col-md-4
+                                                        .form-group
+                                                            label(for="folio") Observacion
+                                                            input.form-control(type='text' name="obs")
+                                            br
+                                            .row.v2.hide
+                                                .col-md-4
+                                                .col-md-4
+                                                    button(type="button", onclick="agregarInputs()").btn.btn-primary
+                                                        i.material-icons add_circle
+                                                .col-md-4
+                                            br
+                                            .row.v2.hide
+                                                .col-md-6
+                                                    .form-group
+                                                        label(for="") Observacion De Vale
+                                                        input(type="text", name="obsVale").form-control 
+                                            .row
+                                                .col-md-6
+                                                    .form-group
+                                                        label(for="inputEmail4") Entrego
+                                                        input.form-control(type='text', name="ent")
+                                                .col-md-6
+                                                    .form-group
+                                                        label(for="inputEmail4") Recibio
+                                                        input.form-control(type='text' name="rec")
+                                                    
+                                                    
+                                                    
+                                    .modal-footer
+                                        button(type="button" class="btn btn-danger" data-dismiss="modal") Cancelar
+                                        button(type="button" class="btn btn-primary" onclick="editar()") Editar Vale
+        
+    include ../../layouts/footer.pug
+
+
+script(src="/js/vales/editarVales.js") 

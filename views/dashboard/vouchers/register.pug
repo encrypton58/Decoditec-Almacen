@@ -1,0 +1,67 @@
+doctype html
+head
+    include ../../layouts/headTemplate.pug
+.wrapper
+    include ../../layouts/sidebar.pug
+    .main-panel
+        // Navbar
+        include ../../layouts/navbar.pug
+        .content
+            .container-fluid
+                h1 Registrar Vales
+                br
+                br
+                .row.mx-auto
+                    .col-md-10
+                        .card
+                            .card-header.card-header-primary
+                                h4.card-title Registrar Vales
+                                p.card-category Llena los Campos Para Registrar Vales
+                            .card-body
+                                form
+                                    .row
+                                        .col-md-4
+                                            input(type="text" class="form-control" placeholder="Folio De Vale")#folio
+                                        .col-md-4
+                                            input.form-control(type='date')#fecha
+                                        .col-md-4
+                                            select#tdv(name="").form-control
+                                                option(value="") Tipo De Vale
+                                                option(value="vs") Vale de Salida
+                                                option(value="ve") Vale de Entrada   
+                                    br
+                                    .row
+                                        .col-md-6    
+                                            input.form-control(type='text', placeholder="Nombre")#nombre
+                                        .col-md-6
+                                            input.form-control(type='text', placeholder="Proyecto")#proyecto
+                                    br
+                                    .row
+                                        .col-md-2
+                                            input.form-control(type='number', placeholder="Cantidad")#cant0
+                                        .col-md-6
+                                            input.form-control(type='text', placeholder="Material")#mate0
+                                        .col-md-4
+                                            input.form-control(type='text', placeholder="Observacion Del Material")#obse0
+                                    br
+                                    #newIn
+                                    .row
+                                        .col-md-12.text-center
+                                            button(type="button" onclick="agregarInput()").btn.btn-primary
+                                                i.material-icons add
+                                    br
+                                    .row
+                                        .col-md-4
+                                            input.form-control(type='text', placeholder="Entrego")#entrego
+                                        .col-md-4
+                                            input.form-control(type='text', placeholder="Recibio")#recibio
+                                        .col-md-4
+                                            input.form-control(type='text', placeholder="Observaciones de Vale")#obserVale
+                                    br
+                                    br
+                                    .row
+                                        .col-md-5
+                                            button(type="button", onclick="registrarVales()").btn.btn-primary.btn-block Registrar Vale
+
+        include ../../layouts/footer.pug
+script(src="../../js/vales/registrarVales.js") 

@@ -1,0 +1,149 @@
+doctype html
+head
+    include ../../layouts/headTemplate.pug
+
+style(type="text/css").
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .loading-hidden { display :none !important;}
+
+    .loading {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(25,21,22,.3);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 1s ease-in-out infinite;
+        -webkit-animation: spin 1s ease-in-out infinite;
+    }
+
+    .hide{
+        display: none;
+    }
+
+    .show{
+        display: table-cell;
+    }
+
+    @keyframes spin {
+        to { -webkit-transform: rotate(360deg); }
+    }
+    @-webkit-keyframes spin {
+        to { -webkit-transform: rotate(360deg); }
+    }
+
+.wrapper
+    include ../../layouts/sidebar.pug
+    .main-panel
+        // Navbar
+        include ../../layouts/navbar.pug
+        .content
+            .container-fluid
+                h1 Busqueda De Vales
+                br
+                form
+                    .form-row
+                        .form-group.col-md-6
+                            h4
+                                b Que Tipo de Vale Buscas
+                            select#tvl(name="tvl").form-control
+                                option(value="some") ------  
+                                option(value="vales_de_salidas") Vales De Salida
+                                option(value="vales_de_entradas") Vales De Entrada
+                        .form-group.col-md-6
+                            h4
+                                b Selecciona La version de la tabla
+                            select#table(name="v_tabla").form-control
+                                option(value="some") ------
+                                option(value="v1") V1
+                                option(value="v2") V2  
+                    br
+                    br
+                    .form-row
+                        .form-group.col-md-6
+                            .col-md-12.offset-2
+                                span 
+                                    b Selecciona Un Filtro
+                            select.form-control#f1
+                                option(value="Some") ---------
+                                    option(value="noFolio")  No Folio
+                                    option(value="nombre") Nombre
+                                    option(value="fecha") Fecha 
+                                    option(value="cantidad") Cantidad
+                                    option(value="material") Material
+                                    option(value="proyecto") Proyecto
+                                    option(value="recibio") Recibio
+                                    option(value="entrego") Entrego
+                                    option(value="observacion") Observacion
+                        .form-group.col-md-6
+                            .col-md-12.offset-2
+                                span 
+                                    b Selecciona Un Filtro
+                            select.form-control#f2
+                                option(value="Some") ------------
+                                option(value="noFolio")  No Folio
+                                option(value="nombre") Nombre
+                                option(value="fecha") Fecha 
+                                option(value="cantidad") Cantidad
+                                option(value="material") Material
+                                option(value="proyecto") Proyecto
+                                option(value="recibio") Recibio
+                                option(value="entrego") Entrego
+                                option(value="observacion") Observacion
+                    .form-row
+                        .form-group.col-md-6
+                            input.form-control(type="text" value="" placeholder="Palabra Clave")#pc1
+                        .form-group.col-md-6 
+                            input.form-control(type="text" value="" placeholder="Palabra Clave")#pc2
+                    .form-row 
+                        .form-group.col-md-6
+                            button(onclick="buscarVales()" type="button").btn.btn-primary#buscar
+                                i.material-icons search
+                                | Buscar Vales
+                        .form-group.col-md-6
+                            button(type="button" onclick="imprimirVales()").btn.float-right Imprimir Vales
+                .row
+                    .col-md-12
+                        .card
+                            .card-header.card-header-primary
+                                h4.card-title Vales Encontrados
+                                p.card-category Resultados de Busqueda
+                            .card-body
+                                .table-responsive
+                                    table.table
+                                        thead.text-primary
+                                            tr
+                                                th No Folio
+                                                th Nombre
+                                                th Fecha 
+                                                th.v2.hide Materiales 
+                                                    br
+                                                    h6 (Cant | Mat | Obs)
+                                                th.v1 Cantidad
+                                                th.v1 Material
+                                                th Proyecto
+                                                th Recibio
+                                                th Entrego
+                                                th.v1 Observacion
+                                                th.v2.hide Observacion De Vale
+                                        tbody#mostrarVS
+                                            div#load.loading-hidden
+                                            tr
+                                                td Realiza una busqueda para ver Resultados
+                                                td ----
+                                                td ----
+                                                td.v2.hide Materiales
+                                                td.v1 ----
+                                                td.v1 ----
+                                                td ----
+                                                td ----
+                                                td ----
+                                                td.v1 ----
+                                                td.v2.hide ----
+
+        include ../../layouts/footer.pug
+script(src="/js/vales/buscarVales.js") 

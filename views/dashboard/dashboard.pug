@@ -1,0 +1,119 @@
+doctype html
+head
+  include ../layouts/headTemplate.pug
+  style(type="text/css").
+
+    body{
+    background: #eee;
+    }
+    span{
+      font-size:15px;
+    }
+    .box a{
+      text-decoration:none; 
+      color: #0062cc;
+      border-bottom:2px solid #0062cc;
+    }
+    .box{
+      padding: 0px 0px;
+    }
+
+    .box-part{
+      background:#FFF;
+      border-radius:0;
+      padding:60px 10px;
+      margin:30px 0px;
+    }
+    .text{
+      margin:20px 0px;
+    }
+
+    .fa{
+      color:#9c27b0;
+    }
+
+.wrapper
+  include ../layouts/sidebar.pug
+  .main-panel
+    // Navbar
+    include ../layouts/navbar.pug
+    .content
+      .container-fluid
+        .box
+          .container
+            .row
+              .col-lg-4.col-md-4.col-sm-4.col-xs-12
+                .box-part.text-center
+                  i.fa.fa-sign-in.fa-3x(aria-hidden='true')
+                  .title
+                    h4 Salidas Generales
+                  .text
+                    span
+                      | Genera salida de productos de almacen solo usuarios registrados
+                  button(class=((LOC == "ds") ? "btn-secondary" : "btn-primary")).btn
+                    if LOC == "ds"
+                        | Actual
+                    else
+                        | Proximamente
+              .col-lg-4.col-md-4.col-sm-4.col-xs-12
+                .box-part.text-center
+                  i.fa.fa-user.fa-3x(aria-hidden='true')
+                  .title
+                    h4 Opciones de Trabajador
+                  .text
+                    span
+                      | Administra los Trabajadores del sistema para su acceso
+                  button(class=((LOC == "dt") ? "btn-secondary" : "btn-primary")).btn
+                    if LOC == "dt"
+                        | Actual
+                    else
+                        | Proximamente
+              .col-lg-4.col-md-4.col-sm-4.col-xs-12
+                .box-part.text-center
+                  i.fa.fa-id-card-o.fa-3x(aria-hidden='true')
+                  .title
+                    h4 Vales Salida/Entrada
+                  .text 
+                    span
+                      | Opciones de los vales o bauchers de salida y entrada
+                  a(href='/dashboard' class=((LOC == "dv" ? "btn-secondary" : "btn-primary"))).btn #{((LOC == "dv") ? "Actual" : "Acceder")}
+              .col-lg-4.col-md-4.col-sm-4.col-xs-12
+                .box-part.text-center
+                  i.fa.fa-wpforms.fa-3x(aria-hidden='true')
+                  .title
+                    h4 Crear Inventario
+                  .text
+                    span
+                      | Registra los productos o herramienta del almacen
+                  button(class=((LOC == "di") ? "btn-secondary" : "btn-primary")).btn
+                    if LOC == "di"
+                        | Actual
+                    else
+                        | Proximamente
+
+              .col-lg-4.col-md-4.col-sm-4.col-xs-12
+                .box-part.text-center
+                  i.fa.fa-wrench.fa-3x(aria-hidden='true')
+                  .title
+                    h4 Prestamo De Herramienta
+                  .text
+                    span
+                      | Genera el Prestamo de herramienta para un trabajador registrado
+                  button(class=((LOC == "dp") ? "btn-secondary" : "btn-primary")).btn
+                    if LOC == "dp"
+                        | Actual
+                    else
+                        | Proximamente
+
+              //- .col-lg-4.col-md-4.col-sm-4.col-xs-12
+              //-   .box-part.text-center
+              //-     i.fa.fa-github.fa-3x(aria-hidden='true')
+              //-     .title
+              //-       h4 Github
+              //-     .text
+              //-       span
+              //-         | Lorem ipsum dolor sit amet, id quo eruditi eloquentiam. Assum decore te sed. Elitr scripta ocurreret qui ad.
+              //-     a(href='#') Learn More
+
+    include ../layouts/footer.pug
+    script(src="/javascripts/dashboard.js") 

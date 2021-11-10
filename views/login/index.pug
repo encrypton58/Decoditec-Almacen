@@ -1,0 +1,27 @@
+doctype html
+html(lang="en")
+  head
+    title Decoditec Almacen 
+    link(rel="stylesheet", href="/stylesheets/login/login.css")
+    include ../layouts/head.pug
+  body#LoginForm
+    .container
+      h1.form-heading Decoditec Almacen
+      .login-form
+        .main-div
+          .panel
+            h2 Sistema De Almacen
+            p Ingresa Tus Credenciales Para Acceder
+          form(action="/user/login", method="post")#Login
+            .form-group
+              input#inputEmail.form-control(type='email' name="email" placeholder='Correo')
+            .form-group
+              input#inputPassword.form-control(type='current-password' name="pass" placeholder='Contraseña')
+            .forgot
+              a(href='reset.html') Olvidaste tu Contraseña?
+            button.btn.btn-primary(type='submit') Ingresar
+          br
+          .forgot
+            a(href="/user/registerform") Registrate Si eres nuevo en el sistema
+        p.botto-text Powered By Marc Anthony
+    script(src='/javascripts/login/login.js')

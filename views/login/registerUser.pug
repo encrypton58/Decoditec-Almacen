@@ -1,0 +1,53 @@
+doctype html
+html(lang="en")
+    head
+        include ../layouts/head.pug
+        title Logistica Decoditec
+        style.
+            body{
+                background-image: url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg");
+            }
+    body 
+        br
+        br
+        br
+        br
+        main.my-form
+            div.container
+                div(class='row justify-content-center')
+                    div.col-md-8
+                        div.card
+                            div.card-header Registrate
+                            div.card-body
+                                form(name="my-form", action="/user/register", method="POST")
+                                    div(class="form-group row")
+                                        label(for="nombre", class="col-md-4 col-form-label text-md-right") Nombre Completo
+                                        div.col-md-6
+                                            input(type="text",id="nombre",name="name" pattern="[A-Za-z0-9 ]+", class="form-control" required=true)
+
+                                    div(class="form-group row")
+                                        label(for="email_address", class="col-md-4 col-form-label text-md-right") Correo Electronico
+                                        div.col-md-6
+                                            input(type="email",id="email_address", name="email" required=true, class="form-control")
+            
+                                    div(class="form-group row")
+                                        label(for="password", class="col-md-4 col-form-label text-md-right") Contraseña
+                                        div.col-md-6
+                                            input(type="new-password", id="pass",name="pass", required=true, class="form-control" style={display:'inline-block'})          
+                                            div(class="alert alert-danger mt-2" id="alertPassword" style={display:'none'} role='alert') La Contraseña requiere de 8 caracteres
+                                                                                 
+                                    div(class="form-group row")
+                                        label(for="confirm_pass", class="col-md-4 col-form-label text-md-right") Confirmar Contraseña
+                                        div.col-md-6
+                                            input(type="cuurent-password",id="confirm_pass",name="confirm_pass" required=true class="form-control")
+                                            div(class="alert alert-danger mt-2" id="alert" style={display:'none'} role='alert') No coicinden la contraseñas
+                                            input(type="checkbox", id="show_pass" name="vp" style={display:'inline-block'}, class="mt-2")
+                                            label(for="vp" class='ml-2') Mostrar Contraseñas
+
+                                    div(class='col-md-8 offset-md-2') 
+                                        button(class="btn btn-primary btn-block") Registrarse
+                                        a(class="btn btn-secondary btn-block", href="/") Cancelar 
+        script(src="/javascripts/login/singnup.js")
+        script(src="https://code.jquery.com/jquery-3.6.0.slim.min.js") 
+        
+                                        

@@ -1,0 +1,98 @@
+.sidebar(data-color='purple' data-background-color='white')
+  //
+    Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+    Tip 2: you can also add an image using data-image tag
+  .logo
+    a.simple-text.logo-mini(href='http://www.creative-tim.com')
+      | Decoditec
+    a.simple-text.logo-normal(href='http://www.creative-tim.com')
+      | Sistema De Almacen
+  .sidebar-wrapper
+    ul.nav
+      //dashboard
+      if LOC == "dv"
+        li(class=((sideLoc != Undefined) ? "" : "active")).nav-item
+          a.nav-link(href='/dashboard')
+            i.material-icons dashboard 
+            p Dashboard Vales
+      else if LOC == "dt"
+        li(class=( sideLoc != Undefined ? "" : "active")).nav-item
+          a.nav-link(href='/trabajadores')
+            i.material-icons account_circle
+            p Dashboard Trabajador
+      else if LOC == "ds"
+        li(class=(sideLoc != Undefined ? "" : "active")).nav-item
+          a.nav-link(href="/salidas")
+            i.material-icons exit_to_app
+            p Dashboard Salidas Gral.
+      else if LOC = "di"
+        li(class=(sideLoc != Undefined ? "" : "active"))
+          a.nav-link(href="/inventario")
+            i.material-icons inventory_2
+            p Dashboard Inventario
+
+      //busqueda de vales
+      if LOC == "dv"
+        li(class=(sideLoc != "bv" ? "" : "active")).nav-item
+          a.nav-link(href='/vales/buscar')
+            i.material-icons article
+            p Buscar Vales
+      else if LOC == "dt"
+        li(class=(sideLoc != "bt" ? "" : "active"))
+          a.nav-link(href='/trabajadores/buscar')
+            i.material-icons article 
+            p Buscar Trabajador
+      else if LOC == "ds"
+        li(class=(sideLoc != "bs" ? "" : "active"))
+          a.nav-link(href='/salidas/buscar')
+            i.material-icons article
+            p Buscar Salidas Gral.
+      else if LOC == "di"
+        li(class=(sideLoc != "bi" ? "" : "active"))
+          a.nav-link(href='/inventario/buscar')
+            i.material-icons search
+            p Buscar En Inventario
+      //Registrar
+      if LOC == "dt"
+        li(class=(sideLoc != "rt" ? "" : "active")).nav-item
+          a.nav-link(href='/trabajadores/registrar')
+            i.material-icons create
+            p Registrar Trabajadores
+      else if LOC == "dv"
+        li(class=(sideLoc != "rv" ? "" : "active")).nav-item
+          a.nav-link(href='/vales/registrar')
+            i.material-icons create
+            p Registrar Vales
+      else if LOC == "ds"
+        li(class=(sideLoc != "rs" ? "" : "active")).nav-item
+          a.nav-link(href="/salidas/registrar")
+            i.material-icons create
+            p Registrar Salida General            
+      else if LOC == "di"
+        li(class=(sideLoc != "ri" ? "" : "active")).nav-item
+          a.nav-link(href="/inventario/registrar")
+            i.material-icons grading
+            p Registrar Inventario
+      //Editar Vales
+      if LOC == "dv"
+        li(class=(sideLoc != "ev" ? "" : "active")).nav-item
+          a#editLink.nav-link(href='/vales/editar?pagination=0')
+            i.material-icons edit_note
+            p Editar Vales
+      else if LOC == "dt"
+        li(class=(sideLoc != "et" ? "" : "active")).nav-item
+          a.nav-link(href='/trabajadores/editar')
+            i.material-icons edit_note
+            p Editar Trabajador
+      else if LOC == "ds"
+        li(class=(sideLoc != "es" ? "" : "active"))
+          a.nav-link(href="/salidas/editar")
+            i.material-icons edit_note
+            p Editar Salida Gral.
+      else if LOC == "di"
+        li(class=(sideLoc != "ei" ? "" : "active"))
+          a.nav-link(href="/inventario/editar")
+            i.material-icons edit_note
+            p Editar Inventario
+      // your sidebar here
+script(src="/javascripts/sidebar.js") 

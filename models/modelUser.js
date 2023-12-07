@@ -32,7 +32,7 @@ function login(user) {
                                                 reject({ url: `/error/500?error=${err}` })
                                             } else {
                                                 user.token = token
-                                                user.url = "http://localhost:5000/dashboard"
+                                                user.url = "/dashboard"
                                                 resolve(user)
                                             }
                                         })
